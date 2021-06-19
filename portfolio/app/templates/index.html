@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+
+<header class="header">
+    <div class="container">
+        <div class="text-center">
+            <div class="mb-1">
+                <img src="{{ profile.image.url }}" height="180" width="180" class="rounded-circle img-center-cover">
+            </div>
+            <div>
+                <h2 class="text-subtitle header-title mb-3 fw-bold">{{ profile.name }}</h2>
+                <div class="mb-3 fw-bold">
+                    {% if profile.career %}
+                    <span class="text-subtitle">{{ profile.career }}</span>
+                    <span class="text-subtitle">/</span>
+                    {% endif %}
+                    {% if profile.org %}
+                    <span class="text-subtitle">{{ profile.org }}</span>
+                    {% endif %}
+                    {% if profile.age %}
+                    <span class="text-subtitle">/</span>
+                    <span class="text-subtitle">{{ profile.age }}</span>
+                    {% endif %}
+                </div>
+                <div class="mb-4">
+                    {% if profile.twitter %}<a href="{{ profile.twitter }}" target="_blank"><i
+                            class="fab fa-twitter sns-icon text-twitter"></i></a>{% endif %}
+                    {% if profile.blog %}<a href="{{ profile.blog }}" target="_blank"><i
+                            class="fas fa-blog sns-icon text-blog"></i></a>{% endif %}
+                    {% if profile.github %}<a href="{{ profile.github }}" target="_blank"><i
+                            class="fab fa-github sns-icon text-github"></i></a>{% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-md-8 mx-auto">
+                        <div class="intro-box">
+                            <P class="text-intro">
+                                {{ profile.introduction|safe|linebreaksbr }}
+                            </P>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="mailto:{{ profile.mail }}" class="btn btn-dark fw-bold">お問い合わせ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    </div>
+</header>
+
+<section class="mb-100">
+    <div class="container text-subtitle">
+        <div>
+            <h3 class="display-4 fw-bold text-subtitle">SKILLS</h3>
+            <div class="row">
+                <div class="col-md-10 mx-auto py-4">
+                    <table class="table table-borderless">
+                        {% for skill in skills %}
+                        <tr>
+                            <td class="align-middle h4 fw-bold text-subtitle">{{skill.name}}</td>
+                            <td class="align-middle"><span
+                                    class="badge bg-dark py-1 px-2 font-14">{{skill.years_rounded}}年</span></td>
+                            <td class="align-middle text-subtitle">{{skill.description}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-5">
+    <div class="container">
+        <div>
+            <h3 class="display-4 fw-bold text-subtitle mb-3">WORKS</h3>
+            <div class="row">
+                {% for work in works %}
+                <div class="col-lg-4 mb-3">
+                    <a href="{{ work.url }}" target="_blank">
+                        <div class="card shadow-sm border boder-light">
+                            <div>
+                                <img src="{% if work.image %}{{ work.image.url }}{% else %}{% static 'assets/img/sample.png' %}{% endif %}"
+                                    class="w-100 img-center-cover" height="300">
+                            </div>
+                            <div class="p-3 bg-dark">
+                                <h5 class="text-subtitle mb-0">{{work.title}}</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+                <div class="text-end">
+                    <a href="{% url 'portfolio:works' %}" class="btn btn-lg btn-dark">View All Works <i
+                            class="fas fa-list-alt ps-1"></i></a>
+                </div>
+            </div>
+        </div>
+
+</section>
+
+{% endblock %}

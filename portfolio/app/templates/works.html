@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+
+<section>
+    <a href="/" class="left-top btn btn-dark"><i class="fas fa-chevron-left pe-1"></i>Back</a>
+    <div class="container">
+        <div class="text-center">
+            <h3 class="display-4 fw-bold text-subtitle m-3">WORKS</h3>
+        </div>
+        <div class="row">
+            {% for work in works %}
+            <div class="col-lg-4 mb-3">
+                <a href="{{ work.url }}" target="_blank">
+                    <div class="card shadow-sm border boder-light">
+                        <div>
+                            <img src="{% if work.image %}{{ work.image.url }}{% else %}{% static 'assets/img/sample.png' %}{% endif %}"
+                                class="w-100 img-center-cover" height="300">
+                        </div>
+                        <div class="p-3 bg-dark">
+                            <h5 class="text-subtitle mb-0">{{work.title}}</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}
